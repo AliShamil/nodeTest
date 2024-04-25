@@ -1,11 +1,11 @@
 const events = require("events");
 const fs = require("fs");
+//Lesson 1
+// const emitter = new events.EventEmitter();
 
-const emitter = new events.EventEmitter();
-
-emitter.on("babatEvent", (message) => {
-    console.log(message)
-});
+// emitter.on("babatEvent", (message) => {
+//     console.log(message)
+// });
 
 //  emitter.emit("babatEvent","Babat things happened!");
 
@@ -26,3 +26,78 @@ emitter.on("babatEvent", (message) => {
 //        return;
 //     }
 // })
+
+
+
+
+
+//Lesson 2
+// const readStream = fs.createReadStream("arthurmorgan.jpeg")
+// const writeStream = fs.createWriteStream("copyPic.jpeg")
+
+
+// readStream.on("data",(chunk)=>{
+//     console.log("-- NEW CHUNK --")
+//     console.log(chunk)
+//     writeStream.write(chunk)
+// })
+
+// readStream.pipe(writeStream)
+
+
+// Lesson 3
+
+// const http = require("http")
+// const server = http.createServer((req,res)=>{
+//     console.log("Request made to server")
+//     res.setHeader("Content-Type","text/html")
+
+
+//     fs.readFile("test.html",(err,data)=>{
+//         if(err){
+//             console.log(err)
+//             res.end();
+//         }
+//         else{
+//             res.write(data);
+//             res.end();
+//         }
+//     })
+// })
+// const PORT = 3000
+// server.listen(PORT,"localhost",()=>{
+//     console.log("listening on port 3000");
+// })
+
+//Lesson 4
+const express = require("express")
+
+const app = express();
+app.get("/",(req,res)=>{
+    console.log("here");
+    // res.status(200).send("hi");
+    // res.status(500).json({message:"Server error happened!"});
+    // res.download("arthurmorgan.jpeg")
+    //res.sendFile(`${__dirname}/test.html`)
+})
+app.get("users/:id",(req,res)=>{
+    console.log(req.params.id);
+})
+app.post("/",(req,res)=>{
+    res.send("POST request received")
+})
+app.put("/",(req,res)=>{
+    res.send("PUT request received")
+})
+app.delete("/",(req,res)=>{
+    res.send("DELETE request received")
+})
+app.use((req,res)=>{
+    res.status(404).send("404 Not Found")
+})
+
+
+app.listen(3000,()=>{
+    console.log("Server running on 3000")
+});
+
