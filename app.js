@@ -72,32 +72,43 @@ const fs = require("fs");
 //Lesson 4
 const express = require("express")
 
+// const app = express();
+// app.get("/",(req,res)=>{
+//     console.log("here");
+//     // res.status(200).send("hi");
+//     // res.status(500).json({message:"Server error happened!"});
+//     // res.download("arthurmorgan.jpeg")
+//     //res.sendFile(`${__dirname}/test.html`)
+// })
+// app.get("users/:id",(req,res)=>{
+//     console.log(req.params.id);
+// })
+// app.post("/",(req,res)=>{
+//     res.send("POST request received")
+// })
+// app.put("/",(req,res)=>{
+//     res.send("PUT request received")
+// })
+// app.delete("/",(req,res)=>{
+//     res.send("DELETE request received")
+// })
+// app.use((req,res)=>{
+//     res.status(404).send("404 Not Found")
+// })
+
+//Lesson 5
+const mongoose = require("mongoose")
+const todoRoutes = require("./routes/todoRoutes")
 const app = express();
-app.get("/",(req,res)=>{
-    console.log("here");
-    // res.status(200).send("hi");
-    // res.status(500).json({message:"Server error happened!"});
-    // res.download("arthurmorgan.jpeg")
-    //res.sendFile(`${__dirname}/test.html`)
-})
-app.get("users/:id",(req,res)=>{
-    console.log(req.params.id);
-})
-app.post("/",(req,res)=>{
-    res.send("POST request received")
-})
-app.put("/",(req,res)=>{
-    res.send("PUT request received")
-})
-app.delete("/",(req,res)=>{
-    res.send("DELETE request received")
-})
-app.use((req,res)=>{
-    res.status(404).send("404 Not Found")
-})
 
+app.use(express.json());
 
-app.listen(3000,()=>{
+mongoose.connect("mongodb+srv://elisamilzade:ali_samilzade@cluster0.ylky7ea.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+    .then(() => console.log("Connected to MongoDB Atlas"))
+    .catch((err) => console.error("Error connectong to MongoDB Atlas", err));
+app.use("/todos",todoRoutes);
+
+app.listen(3000, () => {
     console.log("Server running on 3000")
 });
 
